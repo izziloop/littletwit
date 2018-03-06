@@ -1,3 +1,12 @@
+# IntelliJ
+.idea/
+*.iml
+target
+
+# Git
+.git
+.gitattributes
+
 # Compiled class file
 *.class
 
