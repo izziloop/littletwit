@@ -1,6 +1,6 @@
 package com.jrochas.littletwit;
 
-public enum Command {
+public enum CommandOperator {
 
     POST_MESSAGE("->", true),
 
@@ -10,19 +10,16 @@ public enum Command {
 
     DISPLAY_WALL("wall", false);
 
-    //TODO use user + command + if arg -- valid arg pattern
-    private static final String validInputPattern = "";
-
     private String keyword;
 
     private boolean hasArguments;
 
-    private Command(String keyword, boolean hasArguments) {
+    private CommandOperator(String keyword, boolean hasArguments) {
         this.keyword = keyword;
         this.hasArguments = hasArguments;
     }
 
-    public String getKeyword() {
+    public String getReservedKeyword() {
         return this.keyword;
     }
 

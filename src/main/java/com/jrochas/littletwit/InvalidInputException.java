@@ -1,6 +1,6 @@
 package com.jrochas.littletwit;
 
-public class InvalidInputException {
+public class InvalidInputException extends Exception {
 
     // pattern starts with a trimmed string plus a space plus a command with arguements
 
@@ -9,4 +9,8 @@ public class InvalidInputException {
     // case 2 use a valid command
 
     // you cannot follow yourself
+
+    public InvalidInputException(String message) {
+        super(message);
+    }
 }
