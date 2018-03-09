@@ -6,20 +6,29 @@ public class ParsedCommand {
 
     private CommandOperator operator;
 
+
     private String parameter;
 
     public ParsedCommand(String username, CommandOperator operator) {
-        this.username = username;
-        this.operator = operator;
+        this(username, operator, "");
     }
 
     public ParsedCommand(String username, CommandOperator operator, String parameter) {
-        this(username, operator);
+        this.username = username;
+        this.operator = operator;
         this.parameter = parameter;
     }
 
-    public void execute() {
 
+    public CommandOperator getOperator() {
+        return this.operator;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getParameter() {
+        return this.parameter;
+    }
 }

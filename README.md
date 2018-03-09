@@ -13,8 +13,13 @@ messages  and users are persistent across executions
 
 the command are case sensitive FOLLOW does not work
 
+maximum length for messages
 
 limitations:
+
+commands are not treated asynchronously
+
+does not consider persistence nor big amount of messages
 
 
 what it does not support

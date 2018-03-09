@@ -14,14 +14,13 @@ import static com.jrochas.littletwit.CommandParser.CommandToken.USER;
 
 public class CommandParser {
 
-    public static final Logger logger = LogManager.getLogger(CommandParser.class);
+    private static final Logger logger = LogManager.getLogger(CommandParser.class);
 
     private static final String WHITE_SPACE_REGEX = "\\p{javaWhitespace}";
     private static final String ALL_WHITE_SPACE_REGEX = WHITE_SPACE_REGEX + "+";
 
     private static final Pattern TOKEN_PATTERN = Pattern.compile(ALL_WHITE_SPACE_REGEX);
     private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[a-zA-Z0-9]*");
-
 
     public ParsedCommand parse(String command) throws InvalidInputException, EmptyCommandException {
 
@@ -31,24 +30,30 @@ public class CommandParser {
 
         this.validateTokenNumber(commandTokens);
 
-        String username = parseUsername(commandTokens);
+        String username = this.parseUsername(commandTokens);
 
         if (commandTokens.length == 1) {
             return new ParsedCommand(username, CommandOperator.VIEW_TIMELINE);
         }
 
-        CommandOperator commandOperator = parseCommandOperator(commandTokens);
+        CommandOperator commandOperator = this.parseCommandOperator(commandTokens);
 
         if (commandTokens.length == 2) {
             return new ParsedCommand(username, commandOperator);
         } else {
 
-            Pattern commandOperatorPattern = Pattern.compile(commandOperator.getReservedKeyword(), Pattern.LITERAL);
-            String commandParameter = Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ALL_WHITE_SPACE_REGEX).matcher(command).replaceFirst("");
-            System.out.println(commandParameter);
+            String commandParameter = this.parseCommandParameter(command, username, commandOperator);
             return new ParsedCommand(username, commandOperator, commandParameter);
         }
 
+    }
+
+    private String parseCommandParameter(String command, String username, CommandOperator commandOperator) {
+
+        Pattern commandOperatorPattern = Pattern.compile(commandOperator.getReservedKeyword(), Pattern.LITERAL);
+
+        return Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ALL_WHITE_SPACE_REGEX)
+                .matcher(command).replaceFirst("");
     }
 
     private void validateTokenNumber(String[] commandTokens) throws EmptyCommandException {
@@ -66,7 +71,7 @@ public class CommandParser {
 
         String commandOperatorToken = commandToken[OPERATOR.ordinal()];
 
-        for (CommandOperator validOperator: CommandOperator.values()) {
+        for (CommandOperator validOperator : CommandOperator.values()) {
             if (commandOperatorToken.equals(validOperator.getReservedKeyword())) {
                 commandOperator = CommandOperator.getEnum(commandOperatorToken);
                 break;
