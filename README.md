@@ -12,3 +12,9 @@ messages  and users are persistent across executions
 //not empty username
 
 the command are case sensitive FOLLOW does not work
+
+
+limitations:
+
+
+what it does not support

@@ -17,7 +17,7 @@ public class LittleTwit {
                 parsedCommand = commandParser.parse(input.nextLine());
                 parsedCommand.execute();
             } catch (InvalidInputException e) {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             } catch (EmptyCommandException e) {
                 // ignore empty commands
             }

@@ -16,6 +16,7 @@ public class TimeLine {
 
     public void addMessage(String message) {
         this.lastMessages.add(new Message(message, LocalDate.now()));
+        // TODO if limit is reached, then put in db
     }
 
 

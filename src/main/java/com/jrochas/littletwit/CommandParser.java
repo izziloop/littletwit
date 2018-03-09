@@ -1,5 +1,10 @@
 package com.jrochas.littletwit;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,19 +14,20 @@ import static com.jrochas.littletwit.CommandParser.CommandToken.USER;
 
 public class CommandParser {
 
-    //TODO use user + command + if arg -- valid arg pattern
+    public static final Logger logger = LogManager.getLogger(CommandParser.class);
 
+    private static final String WHITE_SPACE_REGEX = "\\p{javaWhitespace}";
+    private static final String ALL_WHITE_SPACE_REGEX = WHITE_SPACE_REGEX + "+";
 
-
-    private static final Pattern tokenPattern = Pattern.compile("\\p{javaWhitespace}");
-    private static final Pattern alphanumericPattern = Pattern.compile("[a-zA-Z0-9]*");
-
-
+    private static final Pattern TOKEN_PATTERN = Pattern.compile(ALL_WHITE_SPACE_REGEX);
+    private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[a-zA-Z0-9]*");
 
 
     public ParsedCommand parse(String command) throws InvalidInputException, EmptyCommandException {
 
-        String[] commandTokens = tokenPattern.split(command);
+        logger.info("Read command: " + command);
+
+        String[] commandTokens = TOKEN_PATTERN.split(command);
 
         this.validateTokenNumber(commandTokens);
 
@@ -36,13 +42,20 @@ public class CommandParser {
         if (commandTokens.length == 2) {
             return new ParsedCommand(username, commandOperator);
         } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            return new ParsedCommand(username, commandOperator, stringBuilder.toString());
+
+            Pattern commandOperatorPattern = Pattern.compile(commandOperator.getReservedKeyword(), Pattern.LITERAL);
+            String commandParameter = Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ALL_WHITE_SPACE_REGEX).matcher(command).replaceFirst("");
+            System.out.println(commandParameter);
+            return new ParsedCommand(username, commandOperator, commandParameter);
         }
 
     }
 
     private void validateTokenNumber(String[] commandTokens) throws EmptyCommandException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Tokenized command: " + Arrays.toString(commandTokens));
+        }
+
         if (commandTokens.length == 0) {
             throw new EmptyCommandException();
         }
@@ -51,33 +64,38 @@ public class CommandParser {
     private CommandOperator parseCommandOperator(String[] commandToken) throws InvalidInputException {
         CommandOperator commandOperator = null;
 
-        String parsedCommandOperator = commandToken[OPERATOR.ordinal()];
+        String commandOperatorToken = commandToken[OPERATOR.ordinal()];
 
         for (CommandOperator validOperator: CommandOperator.values()) {
-            if (parsedCommandOperator.equals(validOperator.getReservedKeyword())) {
-                commandOperator = CommandOperator.valueOf(parsedCommandOperator);
+            if (commandOperatorToken.equals(validOperator.getReservedKeyword())) {
+                commandOperator = CommandOperator.getEnum(commandOperatorToken);
                 break;
             }
         }
 
         if (commandOperator != null) {
+
+            logger.debug("Parsed command operator: " + commandOperator);
+
             return commandOperator;
         } else {
-            throw new InvalidInputException("Command is not recognized");
+            throw new InvalidInputException("Command " + commandOperatorToken + " is not recognized");
         }
     }
 
     private String parseUsername(String[] commandTokens) throws InvalidInputException {
 
-        String parsedUsername = commandTokens[USER.ordinal()];
+        String usernameToken = commandTokens[USER.ordinal()];
 
-        Matcher matcher = alphanumericPattern.matcher(parsedUsername);
+        Matcher matcher = ALPHANUMERIC_PATTERN.matcher(usernameToken);
 
         if (matcher.matches()) {
-            System.out.println("user is compliant");
-            return parsedUsername;
+
+            logger.debug("Parsed username: " + usernameToken);
+
+            return usernameToken;
         } else {
-            throw new InvalidInputException("Username " + parsedUsername + " is not alphanumerical");
+            throw new InvalidInputException("Username " + usernameToken + " is not alphanumerical");
         }
     }
 

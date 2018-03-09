@@ -19,7 +19,8 @@ public class UserManager {
     }
 
     public void addMessageToUser(String username, String message) {
-
+        TimeLine timeLine = this.users.get(username);
+        timeLine.addMessage(message);
     }
 
 }

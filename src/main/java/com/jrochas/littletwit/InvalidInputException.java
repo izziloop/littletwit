@@ -10,7 +10,9 @@ public class InvalidInputException extends Exception {
 
     // you cannot follow yourself
 
+    public static final String WARNING_SIGN = "/!\\ ";
+
     public InvalidInputException(String message) {
-        super(message);
+        super(WARNING_SIGN + message);
     }
 }
