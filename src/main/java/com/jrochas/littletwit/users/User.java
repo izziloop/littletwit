@@ -32,8 +32,8 @@ public class User {
 
         Map<String, LinkedList<Message>> allFollowedMessagesByUsername = new HashMap<>();
 
-        allFollowedMessagesByUsername.put(this.username, this.timeLine.getAllMessages());
-        this.followedUsers.forEach(followedUser -> allFollowedMessagesByUsername.put(followedUser.username, followedUser.timeLine.getAllMessages()));
+        allFollowedMessagesByUsername.put(this.username, this.timeLine.getAllMessagesCopy());
+        this.followedUsers.forEach(followedUser -> allFollowedMessagesByUsername.put(followedUser.username, followedUser.timeLine.getAllMessagesCopy()));
 
         return allFollowedMessagesByUsername;
     }

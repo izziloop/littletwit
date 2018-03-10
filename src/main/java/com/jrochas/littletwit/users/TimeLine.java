@@ -2,8 +2,11 @@ package com.jrochas.littletwit.users;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class TimeLine {
 
@@ -17,8 +20,10 @@ public class TimeLine {
         this.messages.add(new Message(text, LocalDate.now(), LocalTime.now()));
     }
 
-    protected LinkedList<Message> getAllMessages() {
-        return this.messages;
+    protected LinkedList<Message> getAllMessagesCopy() {
+        LinkedList<Message> allMessagesCopy = new LinkedList<>();
+        allMessagesCopy.addAll(this.messages);
+        return allMessagesCopy;
     }
 
     protected Deque<String> getAllDisplayableMessages() {
