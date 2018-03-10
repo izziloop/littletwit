@@ -1,12 +1,9 @@
-package com.jrochas.littletwit.users;
+package com.jrochas.littletwit.message;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class TimeLine {
 

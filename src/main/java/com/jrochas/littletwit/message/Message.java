@@ -1,4 +1,4 @@
-package com.jrochas.littletwit.users;
+package com.jrochas.littletwit.message;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -2,8 +2,8 @@ package com.jrochas.littletwit.command;
 
 import com.jrochas.littletwit.Properties;
 import com.jrochas.littletwit.exceptions.InvalidInputException;
-import com.jrochas.littletwit.users.User;
-import com.jrochas.littletwit.users.WallBuilder;
+import com.jrochas.littletwit.user.User;
+import com.jrochas.littletwit.message.WallBuilder;
 
 import java.util.Deque;
 import java.util.HashMap;

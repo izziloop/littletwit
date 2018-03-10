@@ -1,8 +1,9 @@
-package com.jrochas.littletwit.users;
+package com.jrochas.littletwit.message;
+
+import com.jrochas.littletwit.user.User;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class WallBuilder {

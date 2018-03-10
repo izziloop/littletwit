@@ -1,4 +1,7 @@
-package com.jrochas.littletwit.users;
+package com.jrochas.littletwit.user;
+
+import com.jrochas.littletwit.message.Message;
+import com.jrochas.littletwit.message.TimeLine;
 
 import java.util.*;
 

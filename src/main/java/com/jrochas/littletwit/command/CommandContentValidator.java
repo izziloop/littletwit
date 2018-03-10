@@ -2,7 +2,7 @@ package com.jrochas.littletwit.command;
 
 import com.jrochas.littletwit.Properties;
 import com.jrochas.littletwit.exceptions.InvalidInputException;
-import com.jrochas.littletwit.users.User;
+import com.jrochas.littletwit.user.User;
 
 public class CommandContentValidator {
 
