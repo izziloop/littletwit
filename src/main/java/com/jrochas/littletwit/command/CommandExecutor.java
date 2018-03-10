@@ -72,6 +72,8 @@ public class CommandExecutor {
 
         User user = this.getUserOrCreate(username);
 
+        this.commandContentValidator.checkFollowedUserIsNotUser(followedUser, user);
+
         user.addFollowedUser(followedUser);
     }
 

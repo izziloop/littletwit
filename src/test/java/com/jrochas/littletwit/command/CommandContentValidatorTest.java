@@ -37,8 +37,15 @@ public class CommandContentValidatorTest {
     @Test
     public void testCheckUserNotNullDoesNotThrowException() throws InvalidInputException {
         String username = "username";
-        User invalidUser = new User(username);
-        this.commandContentValidator.checkUserNotNull(invalidUser, username);
+        User validUser = new User(username);
+        this.commandContentValidator.checkUserNotNull(validUser, username);
+    }
+
+    @Test(expected = InvalidInputException.class)
+    public void testUserCannotFollowHimself() throws InvalidInputException {
+        String username = "username";
+        User validUser = new User(username);
+        this.commandContentValidator.checkFollowedUserIsNotUser(validUser, validUser);
     }
 
 }

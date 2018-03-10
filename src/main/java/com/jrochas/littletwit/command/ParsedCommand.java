@@ -2,15 +2,16 @@ package com.jrochas.littletwit.command;
 
 public class ParsedCommand {
 
+    public static final String NO_PARAMETER = "";
+
     private String username;
 
     private CommandOperator operator;
 
-
     private String parameter;
 
     protected ParsedCommand(String username, CommandOperator operator) {
-        this(username, operator, "");
+        this(username, operator, NO_PARAMETER);
     }
 
     protected ParsedCommand(String username, CommandOperator operator, String parameter) {

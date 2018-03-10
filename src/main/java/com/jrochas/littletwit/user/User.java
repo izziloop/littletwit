@@ -19,6 +19,10 @@ public class User {
         this.followedUsers = new HashSet<>();
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     public void addMessage(String parameter) {
         this.timeLine.addMessage(parameter);
     }

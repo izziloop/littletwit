@@ -18,4 +18,9 @@ public class CommandContentValidator {
         }
     }
 
+    public void checkFollowedUserIsNotUser(User followedUser, User user) throws InvalidInputException {
+        if (followedUser.equals(user)) {
+            throw new InvalidInputException("User " + user.getUsername() + " cannot follow himself");
+        }
+    }
 }

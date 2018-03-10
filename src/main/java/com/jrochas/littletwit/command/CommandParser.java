@@ -10,9 +10,6 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.jrochas.littletwit.command.CommandParser.CommandToken.OPERATOR;
-import static com.jrochas.littletwit.command.CommandParser.CommandToken.USER;
-
 
 public class CommandParser {
 
@@ -22,13 +19,13 @@ public class CommandParser {
     private static final String ALL_WHITE_SPACE_REGEX = WHITE_SPACE_REGEX + "+";
 
     private static final Pattern TOKEN_PATTERN = Pattern.compile(ALL_WHITE_SPACE_REGEX);
-    private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[a-zA-Z0-9]*");
+    private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[a-zA-Z0-9]+");
 
     public ParsedCommand parse(String command) throws InvalidInputException, EmptyCommandException {
 
         logger.info("Read command: " + command);
 
-        String[] commandTokens = TOKEN_PATTERN.split(command);
+        String[] commandTokens = TOKEN_PATTERN.split(command.trim());
 
         this.validateTokenNumber(commandTokens);
 
@@ -55,7 +52,7 @@ public class CommandParser {
         Pattern commandOperatorPattern = Pattern.compile(commandOperator.getReservedKeyword(), Pattern.LITERAL);
 
         return Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ALL_WHITE_SPACE_REGEX)
-                .matcher(command).replaceFirst("");
+                .matcher(command).replaceFirst("").trim();
     }
 
     private void validateTokenNumber(String[] commandTokens) throws EmptyCommandException {
@@ -71,7 +68,7 @@ public class CommandParser {
     private CommandOperator parseCommandOperator(String[] commandToken) throws InvalidInputException {
         CommandOperator commandOperator = null;
 
-        String commandOperatorToken = commandToken[OPERATOR.ordinal()];
+        String commandOperatorToken = commandToken[CommandToken.OPERATOR.ordinal()];
 
         for (CommandOperator validOperator : CommandOperator.values()) {
             if (commandOperatorToken.equals(validOperator.getReservedKeyword())) {
@@ -92,7 +89,7 @@ public class CommandParser {
 
     private String parseUsername(String[] commandTokens) throws InvalidInputException {
 
-        String usernameToken = commandTokens[USER.ordinal()];
+        String usernameToken = commandTokens[CommandToken.USER.ordinal()];
 
         Matcher matcher = ALPHANUMERIC_PATTERN.matcher(usernameToken);
 
@@ -106,13 +103,12 @@ public class CommandParser {
         }
     }
 
-    enum CommandToken {
+    private enum CommandToken {
 
         USER,
 
         OPERATOR,
 
-        PARAMETER
     }
 
 }
