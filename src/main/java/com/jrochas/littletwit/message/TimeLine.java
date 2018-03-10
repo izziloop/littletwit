@@ -9,21 +9,21 @@ public class TimeLine {
 
     private LinkedList<Message> messages;
 
-    protected TimeLine() {
+    public TimeLine() {
         this.messages = new LinkedList<>();
     }
 
-    protected void addMessage(String text) {
+    public void addMessage(String text) {
         this.messages.add(new Message(text, LocalDate.now(), LocalTime.now()));
     }
 
-    protected LinkedList<Message> getAllMessagesCopy() {
+    public LinkedList<Message> getAllMessagesCopy() {
         LinkedList<Message> allMessagesCopy = new LinkedList<>();
         allMessagesCopy.addAll(this.messages);
         return allMessagesCopy;
     }
 
-    protected Deque<String> getAllDisplayableMessages() {
+    public Deque<String> getAllDisplayableMessages() {
         Deque<String> displayableMessages = new LinkedList<>();
         this.messages.forEach(message -> displayableMessages.push(message.getDisplayableMessage()));
         return displayableMessages;
