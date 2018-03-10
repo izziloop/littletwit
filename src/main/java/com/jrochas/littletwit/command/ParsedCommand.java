@@ -1,4 +1,4 @@
-package com.jrochas.littletwit;
+package com.jrochas.littletwit.command;
 
 public class ParsedCommand {
 
@@ -9,11 +9,11 @@ public class ParsedCommand {
 
     private String parameter;
 
-    public ParsedCommand(String username, CommandOperator operator) {
+    protected ParsedCommand(String username, CommandOperator operator) {
         this(username, operator, "");
     }
 
-    public ParsedCommand(String username, CommandOperator operator, String parameter) {
+    protected ParsedCommand(String username, CommandOperator operator, String parameter) {
         this.username = username;
         this.operator = operator;
         this.parameter = parameter;

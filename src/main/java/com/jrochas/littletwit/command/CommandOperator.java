@@ -1,4 +1,4 @@
-package com.jrochas.littletwit;
+package com.jrochas.littletwit.command;
 
 import java.util.Arrays;
 

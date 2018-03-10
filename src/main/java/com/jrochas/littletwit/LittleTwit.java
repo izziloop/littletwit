@@ -1,5 +1,10 @@
 package com.jrochas.littletwit;
 
+import com.jrochas.littletwit.command.CommandParser;
+import com.jrochas.littletwit.command.ParsedCommand;
+import com.jrochas.littletwit.exceptions.EmptyCommandException;
+import com.jrochas.littletwit.exceptions.InvalidInputException;
+import com.jrochas.littletwit.command.CommandExecutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,17 +18,26 @@ public class LittleTwit {
 
         Scanner input = new Scanner(Properties.INPUT);
 
-        UserManager userManager = new UserManager();
         CommandParser commandParser = new CommandParser();
+        CommandExecutor commandExecutor = new CommandExecutor();
+
+        printPrompt();
 
         ParsedCommand parsedCommand;
 
-        while (input.hasNext()) {
+        while (input.hasNextLine()) {
 
             try {
-                Properties.OUTPUT.print(Properties.PROMPT_CHARACTER);
-                parsedCommand = commandParser.parse(input.nextLine());
-                userManager.execute(parsedCommand);
+
+                String enteredCommand = input.nextLine();
+
+                logger.info("Entered command: " + enteredCommand);
+
+                parsedCommand = commandParser.parse(enteredCommand);
+                commandExecutor.execute(parsedCommand);
+
+                printPrompt();
+
             } catch (EmptyCommandException e) {
                 // ignore empty commands
             } catch (InvalidInputException e) {
@@ -31,8 +45,11 @@ public class LittleTwit {
             } catch (RuntimeException e) {
                 logger.error("Runtime exception while executing main loop", e);
             }
-
         }
+    }
+
+    private static void printPrompt() {
+        Properties.OUTPUT.print(Properties.PROMPT_CHARACTER + " ");
     }
 
 }

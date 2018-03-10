@@ -1,36 +1,50 @@
 package com.jrochas.littletwit.users;
 
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.LocalTime;
 
 public class Message {
 
-    // TODO text constraints
-
-    protected static final Message EMPTY = new Message();
-
     private final String text;
 
-    private final LocalDate timestamp;
+    private final LocalDate date;
 
-    private Message() {
-        this.text = "";
-        this.timestamp = LocalDate.MIN;
+    private final LocalTime time;
+
+    private final MessageFormatter messageFormatter;
+
+    protected Message(String text, LocalDate date, LocalTime time) {
+        this.text = text;
+        this.date = date;
+        this.time = time;
+        this.messageFormatter = new MessageFormatter(this);
     }
 
-    protected Message(String text, LocalDate timestamp) {
-        this.text = text;
-        this.timestamp = timestamp;
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public LocalTime getTime() {
+        return this.time;
+    }
+
+    protected boolean isOlderThan(Message message) {
+        if (this.date.isBefore(message.date)) {
+            return true;
+        } else if (this.date.isAfter(message.date)) {
+            return false;
+        } else if (this.time.isBefore(message.time)) {
+            return true;
+        } else if (this.time.isAfter(message.time)) {
+            return false;
+        } else {
+            return false;
+        }
     }
 
     protected String getDisplayableMessage() {
-        return this.text + " (" + this.computeTimeFromNow();
-    }
-
-    private String computeTimeFromNow() {
-        LocalDate now = LocalDate.now();
-        Period between = Period.between(now, this.timestamp);
-        return between.toString();
+        String displayableMessageAging = this.messageFormatter.getDisplayableMessageAging();
+        return this.text + " (" + displayableMessageAging + ")";
     }
 
 }

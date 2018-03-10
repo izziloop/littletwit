@@ -1,6 +1,8 @@
-package com.jrochas.littletwit;
+package com.jrochas.littletwit.command;
 
 
+import com.jrochas.littletwit.exceptions.EmptyCommandException;
+import com.jrochas.littletwit.exceptions.InvalidInputException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,8 +10,8 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.jrochas.littletwit.CommandParser.CommandToken.OPERATOR;
-import static com.jrochas.littletwit.CommandParser.CommandToken.USER;
+import static com.jrochas.littletwit.command.CommandParser.CommandToken.OPERATOR;
+import static com.jrochas.littletwit.command.CommandParser.CommandToken.USER;
 
 
 public class CommandParser {

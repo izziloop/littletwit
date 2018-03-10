@@ -1,4 +1,4 @@
-package com.jrochas.littletwit;
+package com.jrochas.littletwit.exceptions;
 
 public class InvalidInputException extends Exception {
 

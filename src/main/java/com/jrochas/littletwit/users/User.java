@@ -1,8 +1,6 @@
 package com.jrochas.littletwit.users;
 
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class User {
 
@@ -23,7 +21,21 @@ public class User {
     }
 
     public Deque<String> getAllMessages() {
-        return timeLine.getAllDisplayableMessages();
+        return this.timeLine.getAllDisplayableMessages();
+    }
+
+    public void addFollowedUser(User followedUser) {
+        this.followedUsers.add(followedUser);
+    }
+
+    public Map<String, LinkedList<Message>> getAllFollowedMessagesByUsername() {
+
+        Map<String, LinkedList<Message>> allFollowedMessagesByUsername = new HashMap<>();
+
+        allFollowedMessagesByUsername.put(this.username, this.timeLine.getAllMessages());
+        this.followedUsers.forEach(followedUser -> allFollowedMessagesByUsername.put(followedUser.username, followedUser.timeLine.getAllMessages()));
+
+        return allFollowedMessagesByUsername;
     }
 
     @Override
