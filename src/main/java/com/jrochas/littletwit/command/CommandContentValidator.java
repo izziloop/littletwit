@@ -6,6 +6,17 @@ import com.jrochas.littletwit.user.User;
 
 public class CommandContentValidator {
 
+    private static final String EMPTY_STRING = "";
+
+    private static CommandContentValidator instance;
+
+    public static CommandContentValidator getInstance() {
+        if (instance == null) {
+            instance = new CommandContentValidator();
+        }
+        return instance;
+    }
+
     public void checkMessageSize(String message) throws InvalidInputException {
         if (message.length() > Properties.MESSAGES_MAX_LENGTH) {
             throw new InvalidInputException("Message is too long. Message limit is " + Properties.MESSAGES_MAX_LENGTH + " characters");
@@ -23,4 +34,11 @@ public class CommandContentValidator {
             throw new InvalidInputException("User " + user.getUsername() + " cannot follow himself");
         }
     }
+
+    public void checkCommandWithUnaryOpratorHasNoParameter(CommandOperator commandOperator, String commandParameter) throws InvalidInputException {
+        if (!commandParameter.equals(EMPTY_STRING)) {
+            throw new InvalidInputException("Command " + commandOperator.getReservedKeyword() + " does not take parameters");
+        }
+    }
+
 }

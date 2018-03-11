@@ -17,9 +17,16 @@ public class CommandParser {
 
     private static final String WHITE_SPACE_REGEX = "\\p{javaWhitespace}";
     private static final String ALL_WHITE_SPACE_REGEX = WHITE_SPACE_REGEX + "+";
+    private static final String ANY_WHITE_SPACE_REGEX = WHITE_SPACE_REGEX + "*";
 
     private static final Pattern TOKEN_PATTERN = Pattern.compile(ALL_WHITE_SPACE_REGEX);
     private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[a-zA-Z0-9]+");
+
+    private CommandContentValidator commandContentValidator;
+
+    public CommandParser() {
+        this.commandContentValidator = CommandContentValidator.getInstance();
+    }
 
     public ParsedCommand parse(String command) throws InvalidInputException, EmptyCommandException {
 
@@ -34,15 +41,16 @@ public class CommandParser {
         }
 
         CommandOperator commandOperator = this.parseCommandOperator(commandTokens);
+        String commandParameter = this.parseCommandParameter(command, username, commandOperator);
 
-        if (commandTokens.length == 2) {
-            return new ParsedCommand(username, commandOperator);
+        if (commandOperator.hasArguments()) {
+            return new ParsedCommand(username, commandOperator, commandParameter);
+
         } else {
 
-            String commandParameter = this.parseCommandParameter(command, username, commandOperator);
-            return new ParsedCommand(username, commandOperator, commandParameter);
+            this.commandContentValidator.checkCommandWithUnaryOpratorHasNoParameter(commandOperator, commandParameter);
+            return new ParsedCommand(username, commandOperator);
         }
-
     }
 
     private String parseCommandParameter(String command, String username, CommandOperator commandOperator) {
@@ -60,7 +68,7 @@ public class CommandParser {
 
     private String removeUserAndOperatorFromCommand(String command, String username, Pattern commandOperatorPattern) {
 
-        return Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ALL_WHITE_SPACE_REGEX)
+        return Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ANY_WHITE_SPACE_REGEX)
                 .matcher(command).replaceFirst("").trim();
     }
 

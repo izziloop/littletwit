@@ -17,7 +17,7 @@ public class CommandExecutor {
 
     public CommandExecutor() {
         this.users = new HashMap<>();
-        this.commandContentValidator = new CommandContentValidator();
+        this.commandContentValidator = CommandContentValidator.getInstance();
     }
 
     public void execute(ParsedCommand parsedCommand) throws InvalidInputException {

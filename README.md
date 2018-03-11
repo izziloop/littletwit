@@ -30,3 +30,13 @@ does not consider persistence nor big amount of messages
     // no valid command
 
     // user follows same user
+
+
+
+        // pattern starts with a trimmed string plus a space plus a command with arguements
+
+        // case 1 start your command by a user name
+
+        // case 2 use a valid command
+
+        // you cannot follow yourself
