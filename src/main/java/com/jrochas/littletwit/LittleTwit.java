@@ -21,6 +21,8 @@ public class LittleTwit {
         CommandParser commandParser = new CommandParser();
         CommandExecutor commandExecutor = new CommandExecutor();
 
+        printWelcomeLine();
+
         printPrompt();
 
         ParsedCommand parsedCommand;
@@ -49,6 +51,16 @@ public class LittleTwit {
                 printPrompt();
             }
         }
+    }
+
+    private static void printWelcomeLine() {
+        Properties.OUTPUT.println();
+        Properties.OUTPUT.println("Welcome to LittleTwit 1.0! Start using LittleTwit by posting messages. Usage:");
+        Properties.OUTPUT.println("Posting messages: <username> -> <message>");
+        Properties.OUTPUT.println("Reading messages: <username>");
+        Properties.OUTPUT.println("Following user: <username> follows <username>");
+        Properties.OUTPUT.println("Display wall: <username> wall");
+        Properties.OUTPUT.println();
     }
 
     private static void printPrompt() {

@@ -77,7 +77,8 @@ public class CommandParser {
             logger.debug("Tokenized command: " + Arrays.toString(commandTokens));
         }
 
-        if (commandTokens.length == 0) {
+        if (commandTokens.length < 1 ||
+                (commandTokens.length == 1 && commandTokens[0].equals(""))) {
             throw new EmptyCommandException();
         }
     }
