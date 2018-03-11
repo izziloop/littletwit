@@ -1,42 +1,36 @@
 # littletwit
 
 
-The application is single-threaded and cannot communicate over the network.
+How to run
 
-message posting cannot be more than 140 characters
+Assuming you have a command line opened in the littletwit directory, and that you have the Maven executable in your PATH,
 
-the application does not support an unlimited number of messages
+> mvn exec:java
 
-messages  and users are persistent across executions
+How to create executable jar (under littletwit/target)
 
-// only alpha numerical characters allowed for the username
+> mvn package
 
-//not empty username
+How to run tests
 
-the command are case sensitive FOLLOW does not work
-
-maximum length for messages
-
-limitations:
-
-commands are not treated asynchronously
-
-does not consider persistence nor big amount of messages
-
-// username with several chunks
-
-    // no user name
-
-    // no valid command
-
-    // user follows same user
+> mvn test
 
 
+Characteristics and limitations
 
-        // pattern starts with a trimmed string plus a space plus a command with arguements
+The application handles as much as possible incorrect input from the user.
 
-        // case 1 start your command by a user name
+Posted messages cannot be more than 140 characters.
 
-        // case 2 use a valid command
+Usernames can contain letters and digits only.
 
-        // you cannot follow yourself
+Command are case-sensitive, for example `FOLLOWS` is not accepted in place of `follows`.
+
+The application is single-threaded and cannot communicate over the network nor across processes.
+
+Messages and users are not persistent between multiple executions.
+
+The maximum number of messages that can be manipulated by the application (either by user of by wall) is limited by the biggest integer, which is (2^31)-1.
+
+The application produces a log file (under littletwit/littletwit.log)
+

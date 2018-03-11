@@ -48,7 +48,7 @@ public class MessageFormatter {
         } else {
             long seconds = between.getSeconds();
             builtString.append(seconds).append(" second");
-            this.appendPluralIfNeeded(builtString, minutes);
+            this.appendPluralIfNeeded(builtString, seconds);
         }
     }
 
