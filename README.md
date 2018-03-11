@@ -6,11 +6,13 @@ The following instructions assume that you have a command line opened in the `li
 
 ### How to run
 
-> mvn exec:java
-
-### How to create executable jar (created under `littletwit/target`)
+1. Package
 
 > mvn package
+
+2. Execute
+
+> mvn exec:java
 
 ### How to run tests
 
