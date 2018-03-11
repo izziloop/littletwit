@@ -8,7 +8,7 @@ The following instructions assume that you have a command line opened in the `li
 
 > mvn exec:java
 
-### How to create executable jar (created under littletwit/target)
+### How to create executable jar (created under `littletwit/target`)
 
 > mvn package
 
@@ -29,11 +29,11 @@ The following instructions assume that you have a command line opened in the `li
 
 * The application is single-threaded and cannot communicate over the network nor across processes.
 
-* Messages and users are not persistent between multiple executions.
+* Messages and users are not persistent in between multiple executions.
 
-* The maximum number of messages that can be manipulated by the application (either by user of by wall) is limited by the biggest integer, which is (2^31)-1.
+* The maximum number of messages that can be manipulated by the application (either per user or per wall) is equal to the biggest integer (`(2^31)-1`).
 
-* The application produces a log file (under littletwit/littletwit.log)
+* The application produces a log file (under `littletwit/littletwit.log`)
 
 
 ## Initial requirements
