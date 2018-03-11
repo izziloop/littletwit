@@ -42,9 +42,9 @@ The following instructions assume that you have a command line opened in the `li
 
 * Users submit commands to the application. There are four commands.
 “posting”, “reading”, etc. are not part of the commands; commands
-always start with the user’s name. posting: <user name> ->
-<message> reading: <user name> following: <user name>
-follows <another user> wall: <user name> wall
+always start with the user’s name. posting: `<user name> ->
+<message>` reading: `<user name>` following: `<user name>
+follows <another user>` wall: `<user name> wall`
 
 * If you have time then consider handling exceptions and/or invalid
 commands. Otherwise just assume that the user will always type the
