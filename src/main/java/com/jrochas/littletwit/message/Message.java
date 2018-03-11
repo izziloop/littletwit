@@ -20,6 +20,10 @@ public class Message {
         this.messageFormatter = new MessageFormatter(this);
     }
 
+    public String getText() {
+        return this.text;
+    }
+
     public LocalDate getDate() {
         return this.date;
     }

@@ -9,7 +9,7 @@ public class MessageFormatter {
 
     private final Message message;
 
-    public MessageFormatter(Message message) {
+    protected MessageFormatter(Message message) {
         this.message = message;
     }
 

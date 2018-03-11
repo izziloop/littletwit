@@ -20,7 +20,6 @@ public class ParsedCommand {
         this.parameter = parameter;
     }
 
-
     public CommandOperator getOperator() {
         return this.operator;
     }

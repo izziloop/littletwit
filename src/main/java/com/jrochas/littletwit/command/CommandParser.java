@@ -23,8 +23,6 @@ public class CommandParser {
 
     public ParsedCommand parse(String command) throws InvalidInputException, EmptyCommandException {
 
-        logger.info("Read command: " + command);
-
         String[] commandTokens = TOKEN_PATTERN.split(command.trim());
 
         this.validateTokenNumber(commandTokens);
@@ -50,6 +48,17 @@ public class CommandParser {
     private String parseCommandParameter(String command, String username, CommandOperator commandOperator) {
 
         Pattern commandOperatorPattern = Pattern.compile(commandOperator.getReservedKeyword(), Pattern.LITERAL);
+
+        String commandParameter = this.removeUserAndOperatorFromCommand(command, username, commandOperatorPattern);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Parsed command operator: " + commandOperator);
+        }
+
+        return commandParameter;
+    }
+
+    private String removeUserAndOperatorFromCommand(String command, String username, Pattern commandOperatorPattern) {
 
         return Pattern.compile(username + ALL_WHITE_SPACE_REGEX + commandOperatorPattern.pattern() + ALL_WHITE_SPACE_REGEX)
                 .matcher(command).replaceFirst("").trim();

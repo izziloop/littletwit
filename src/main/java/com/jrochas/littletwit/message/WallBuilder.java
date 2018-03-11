@@ -38,7 +38,9 @@ public class WallBuilder {
 
             this.removeOldestMessage(allFollowedMessagesByUsername, selectedUsername);
 
-            wall.push(selectedUsername + " - " + selectedMessage.getDisplayableMessage());
+            if (selectedMessage != null) {
+                wall.push(selectedUsername + " - " + selectedMessage.getDisplayableMessage());
+            }
         }
 
         return wall;
@@ -46,7 +48,10 @@ public class WallBuilder {
 
     private void removeOldestMessage(Map<String, LinkedList<Message>> allFollowedMessagesByUsername, String selectedUsername) {
         LinkedList<Message> selectedUserMessages = allFollowedMessagesByUsername.get(selectedUsername);
-        selectedUserMessages.removeFirst();
+
+        if (!selectedUserMessages.isEmpty()) {
+            selectedUserMessages.removeFirst();
+        }
 
         if (selectedUserMessages.isEmpty()) {
             allFollowedMessagesByUsername.remove(selectedUsername);

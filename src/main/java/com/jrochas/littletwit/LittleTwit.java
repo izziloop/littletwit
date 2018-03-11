@@ -31,19 +31,22 @@ public class LittleTwit {
 
                 String enteredCommand = input.nextLine();
 
-                logger.info("Entered command: " + enteredCommand);
+                logger.info("Received command: " + enteredCommand);
 
                 parsedCommand = commandParser.parse(enteredCommand);
                 commandExecutor.execute(parsedCommand);
 
-                printPrompt();
-
             } catch (EmptyCommandException e) {
-                // ignore empty commands
+                logger.warn("Main loop encountered an empty input", e);
             } catch (InvalidInputException e) {
+                Properties.OUTPUT.println(e.getMessage());
                 logger.warn("Main loop encountered an invalid input", e);
             } catch (RuntimeException e) {
                 logger.error("Runtime exception while executing main loop", e);
+
+            } finally {
+
+                printPrompt();
             }
         }
     }

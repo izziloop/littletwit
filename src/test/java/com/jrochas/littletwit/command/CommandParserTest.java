@@ -78,7 +78,7 @@ public class CommandParserTest {
 
     @Test
     public void testValidDisplayWallCommand() throws InvalidInputException, EmptyCommandException {
-        ParsedCommand parsedCommand = this.commandParser.parse(VALID_USERNAME + " " + CommandOperator.DISPLAY_WALL);
+        ParsedCommand parsedCommand = this.commandParser.parse(VALID_USERNAME + " " + CommandOperator.DISPLAY_WALL.getReservedKeyword());
         assertTrue(parsedCommand.getUsername().equals(VALID_USERNAME));
         assertTrue(parsedCommand.getOperator().equals(CommandOperator.DISPLAY_WALL));
         assertTrue(parsedCommand.getParameter().equals(ParsedCommand.NO_PARAMETER));
